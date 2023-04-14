@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using FilmesAPI.Dtos;
+using FilmesAPI.Models;
 using FILMESAPI.Data;
-using FILMESAPI.Models;
+
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,7 +40,7 @@ namespace FILMESAPI.Controllers
         {
             return _mapper.Map<List<ReadFilmeDto>>(_context.Filmes.Skip(skip).Take(take)); // skip e take é usando para paginação sim  onde eu informo o 1 e o fim 
         }
-       
+
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public IActionResult RecuperaFilmePorId(int id)
@@ -48,7 +49,7 @@ namespace FILMESAPI.Controllers
 
             if (filme == null) return NotFound();
 
-             var filmeDto = _mapper.Map<ReadFilmeDto>(filme);
+            var filmeDto = _mapper.Map<ReadFilmeDto>(filme);
             return Ok(filmeDto);
 
         }
@@ -83,7 +84,7 @@ namespace FILMESAPI.Controllers
 
             var filmeParaAtualizar = _mapper.Map<UpdateFilmeDto>(filme);
 
-           
+
             try
             {
                 patch.ApplyTo(filmeParaAtualizar, ModelState);
@@ -95,9 +96,9 @@ namespace FILMESAPI.Controllers
             catch (Exception e)
             {
 
-               return BadRequest(e.Message);
+                return BadRequest(e.Message);
             }
-          
+
             _mapper.Map(filmeParaAtualizar, filme);
             _context.SaveChanges();
 
@@ -113,7 +114,7 @@ namespace FILMESAPI.Controllers
         public IActionResult DeletaFilme(int id)
         {
             var filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
-            if(filme == null) return NotFound();
+            if (filme == null) return NotFound();
 
             _context.Remove(filme);
             _context.SaveChanges();
