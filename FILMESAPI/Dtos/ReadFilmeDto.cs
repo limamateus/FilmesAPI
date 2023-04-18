@@ -12,5 +12,7 @@
 
         public DateTime DataHoraDeConsulta { get; set; } =  DateTime.Now;
 
+        public ICollection<ReadSessaoDto> Sessao { get; set; }
+
     }
 }

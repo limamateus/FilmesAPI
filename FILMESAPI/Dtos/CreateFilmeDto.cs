@@ -15,5 +15,7 @@ namespace FilmesAPI.Dtos
         [Range(70, 600, ErrorMessage = "A duração deve ser entre {1} e {2}")]
         public int Duracao { get; set; }
 
+        
+
     }
 }
